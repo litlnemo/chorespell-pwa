@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chore List | ChoreSpell</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#a86ad2" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background: linear-gradient(to bottom right, #e8d0ff, #f9e0ff);
+      color: #4d2063;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .hamburger {
+      font-size: 1.5rem;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+    .logo {
+      flex-grow: 1;
+      text-align: center;
+    }
+    .logo img {
+      height: 60px;
+    }
+    nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100%;
+      background-color: #fff;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+      padding-top: 4rem;
+      z-index: 1000;
+    }
+    nav a {
+      display: block;
+      padding: 1rem;
+      color: #4d2063;
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+    }
+    .visible { display: block; }
+
+    main {
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .chore-item {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .chore-image {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 1rem;
+    }
+
+    .chore-details {
+      flex-grow: 1;
+    }
+
+    .chore-name {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .chore-category {
+      font-size: 0.9rem;
+      color: #7c4cbf;
+    }
+
+    .edit-link {
+      font-size: 1.25rem;
+      margin-left: 1rem;
+      text-decoration: none;
+      color: #a86ad2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="logo">
+      <img src="images/logo.png" alt="Chorespell logo" />
+    </div>
+  </header>
+  <nav id="menu">
+    <a href="index.html">Home</a>
+    <a href="add.html">Add chore</a>
+    <a href="random.html">Random chore</a>
+    <a href="list.html">View all chores</a>
+  </nav>
+
+  <main>
+    <h1>All Chores</h1>
+    <div id="choreList"></div>
+  </main>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('visible');
+    }
+
+    function loadChores() {
+      const list = document.getElementById('choreList');
+      const chores = JSON.parse(localStorage.getItem('chores')) || [];
+
+      if (chores.length === 0) {
+        list.innerHTML = '<p>No chores yet!</p>';
+        return;
+      }
+
+      chores.forEach((chore, index) => {
+        const item = document.createElement('div');
+        item.className = 'chore-item';
+
+        const img = document.createElement('img');
+        img.className = 'chore-image';
+        img.src = chore.image || 'images/logo.png';
+        img.alt = chore.name;
+
+        const details = document.createElement('div');
+        details.className = 'chore-details';
+        details.innerHTML = `<div class="chore-name">${chore.name}</div>
+                             <div class="chore-category">${chore.category}</div>`;
+
+        const editLink = document.createElement('a');
+        editLink.href = `edit.html?id=${index}`;
+        editLink.className = 'edit-link';
+        editLink.textContent = '✏️';
+
+        item.appendChild(img);
+        item.appendChild(details);
+        item.appendChild(editLink);
+
+        list.appendChild(item);
+      });
+    }
+
+    loadChores();
+  </script>
+</body>
+</html>
