@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#a86ad2">
+  <title>ChoreSpell</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background: linear-gradient(to bottom right, #dcb3ff, #ffdde1);
+      color: #4d2063;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .hamburger {
+      font-size: 1.5rem;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+    .logo {
+      flex-grow: 1;
+      text-align: center;
+    }
+    .logo img {
+      height: 60px;
+    }
+    main {
+      text-align: center;
+      padding: 2rem;
+    }
+    .big-button {
+      background-color: #a86ad2;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100%;
+      background-color: #fff;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+      padding-top: 4rem;
+      z-index: 1000;
+    }
+    nav a {
+      display: block;
+      padding: 1rem;
+      color: #4d2063;
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+    }
+    .visible { display: block; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+    <div class="logo">
+      <img src="logo.png" alt="Chorespell logo" />
+    </div>
+  </header>
+  <nav id="menu">
+    <a href="#home">Home</a>
+    <a href="#add">Add chore</a>
+    <a href="#small">Random small chore</a>
+    <a href="#medium">Random medium chore</a>
+    <a href="#large">Random large chore</a>
+  </nav>
+  <main>
+    <h1>Welcome to Chorespell!</h1>
+    <button class="big-button">Random Chore</button>
+  </main>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('visible');
+    }
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('Service Worker registered!'))
+        .catch(error => console.error('Service Worker error:', error));
+    }
+  </script>  
+</body>
+</html>
