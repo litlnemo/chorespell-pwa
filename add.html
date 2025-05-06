@@ -13,13 +13,57 @@
       background: linear-gradient(to bottom right, #e8d0ff, #f9e0ff);
       color: #4d2063;
     }
-    header {
-      display: flex;
-      align-items: center;
-      padding: 1rem;
-      background-color: rgba(255, 255, 255, 0.8);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+    /* Fix header layout */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header-center img {
+  height: 60px;
+}
+
+.header-spacer {
+  width: 24px; /* balances hamburger icon space */
+}
+
+/* Bottom nav bar */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+  z-index: 1001;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #4d2063;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-item small {
+  font-size: 0.75rem;
+  margin-top: 0.1rem;
+}
     .hamburger {
       font-size: 1.5rem;
       cursor: pointer;
@@ -148,5 +192,19 @@
       document.getElementById('successMsg').style.display = 'block';
     });
   </script>
+  <footer class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <div>🏠</div>
+      <small>Home</small>
+    </a>
+    <a href="random.html" class="nav-item">
+      <div>🎲</div>
+      <small>Random</small>
+    </a>
+    <a href="list.html" class="nav-item">
+      <div>📋</div>
+      <small>Chores</small>
+    </a>
+  </footer>
 </body>
 </html>
