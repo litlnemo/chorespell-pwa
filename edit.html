@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Chore | ChoreSpell</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#a86ad2" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background: linear-gradient(to bottom right, #e8d0ff, #f9e0ff);
+      color: #4d2063;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .hamburger {
+      font-size: 1.5rem;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+    .logo {
+      flex-grow: 1;
+      text-align: center;
+    }
+    .logo img {
+      height: 60px;
+    }
+    nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100%;
+      background-color: #fff;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+      padding-top: 4rem;
+      z-index: 1000;
+    }
+    nav a {
+      display: block;
+      padding: 1rem;
+      color: #4d2063;
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+    }
+    .visible { display: block; }
+
+    main {
+      padding: 2rem;
+      max-width: 400px;
+      margin: auto;
+    }
+    form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #a86ad2;
+      color: white;
+      padding: 1rem;
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .success {
+      text-align: center;
+      color: green;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="logo">
+      <img src="images/logo.png" alt="Chorespell logo" />
+    </div>
+  </header>
+  <nav id="menu">
+    <a href="index.html">Home</a>
+    <a href="add.html">Add chore</a>
+    <a href="random.html">Random chore</a>
+    <a href="list.html">View all chores</a>
+  </nav>
+
+  <main>
+    <h1>Edit Chore</h1>
+    <form id="editForm">
+      <label for="name">Chore Name</label>
+      <input type="text" id="name" required />
+
+      <label for="category">Category</label>
+      <select id="category" required>
+        <option value="">--Select--</option>
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+      </select>
+
+      <label for="image">Image URL or path</label>
+      <input type="text" id="image" />
+
+      <button type="submit">Save Changes</button>
+      <div class="success" id="successMsg" style="display: none;">Chore updated!</div>
+    </form>
+  </main>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('visible');
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const choreId = parseInt(urlParams.get('id'), 10);
+
+    const chores = JSON.parse(localStorage.getItem('chores')) || [];
+    const chore = chores[choreId];
+
+    if (!chore) {
+      alert('Chore not found.');
+      window.location.href = 'list.html';
+    }
+
+    document.getElementById('name').value = chore.name;
+    document.getElementById('category').value = chore.category;
+    document.getElementById('image').value = chore.image;
+
+    document.getElementById('editForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      chores[choreId] = {
+        name: document.getElementById('name').value.trim(),
+        category: document.getElementById('category').value,
+        image: document.getElementById('image').value.trim()
+      };
+
+      localStorage.setItem('chores', JSON.stringify(chores));
+      document.getElementById('successMsg').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
