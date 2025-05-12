@@ -7,7 +7,7 @@ This app is actually a website that acts like an app. It stores all your chores 
 
 ## To use
 
-Go to [the app]https://litlnemo.github.io/chorespell-pwa/ in a browser on your device. Tap the Share icon (on iOS) or the three dots in the top right corner of your browser window (on Android). Then choose "Add to Home Screen" (you might have to scroll down to find it). It will then put the "app" on your home screen and you won't have to go through a browser to use it!
+Go to [the app](https://litlnemo.github.io/chorespell-pwa/) in a browser on your device. Tap the Share icon (on iOS) or the three dots in the top right corner of your browser window (on Android). Then choose "Add to Home Screen" (you might have to scroll down to find it). It will then put the "app" on your home screen and you won't have to go through a browser to use it!
 
 ## Warning
 
