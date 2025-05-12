@@ -1,0 +1,48 @@
+/* Universal Dark Mode styles for ChoreSpell */
+
+body.dark {
+  background: #1a1a2e;
+  color: #f0e9ff;
+}
+
+body.dark header {
+  background-color: #2b2b3d !important;
+}
+
+body.dark nav {
+  background-color: #2b2b3d !important;
+}
+
+body.dark .section {
+  background-color: #2b2b3d !important;
+  color: #f0e9ff;
+}
+
+body.dark .bottom-nav {
+  background: #222 !important;
+  color: #f0e9ff;
+}
+
+body.dark .bottom-nav a {
+  color: #f0e9ff;
+}
+
+body.dark .chore-item {
+  background: #2b2b3d !important;
+}
+
+body.dark textarea,
+body.dark input,
+body.dark select {
+  background: #2b2b3d !important;
+  color: #f0e9ff;
+  border: 1px solid #444;
+}
+
+body.dark button {
+  background-color: #6d4eb3;
+}
+
+body.dark a {
+  color: #cfcaff;
+}

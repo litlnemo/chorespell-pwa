@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Add Chore | ChoreSpell</title>
   <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="theme.css">
   <meta name="theme-color" content="#a86ad2" />
   <style>
     body {
@@ -129,6 +130,54 @@ header {
       color: green;
       margin-top: 1rem;
     }
+
+    /* Cute toggle switch */
+.theme-switch {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.slider {
+  position: relative;
+  width: 50px;
+  height: 28px;
+  background-color: #ccc;
+  border-radius: 34px;
+  margin-right: 0.5rem;
+  transition: background-color 0.3s;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  left: 3px;
+  top: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+input:checked + .slider {
+  background-color: #6d4eb3;
+}
+
+input:checked + .slider::before {
+  transform: translateX(22px);
+}
+
+.label-text {
+  user-select: none;
+}
+
   </style>
 </head>
 <body>
@@ -139,11 +188,14 @@ header {
         </div>
         <div class="header-spacer"></div>
     </header>
-  <nav id="menu">
+    <nav id="menu">
     <a href="index.html">Home</a>
     <a href="add.html">Add chore</a>
     <a href="random.html">Random chore</a>
     <a href="list.html">View all chores</a>
+    <a href="backup.html">Backup & Restore</a>
+    <a href="settings.html">Settings</a>
+    <a href="about.html">About</a>
   </nav>
 
   <main>
@@ -160,9 +212,18 @@ header {
         <option value="large">Large</option>
       </select>
 
-      <label for="image">Image URL (or path in /images/)</label>
-      <input type="text" id="image" placeholder="e.g. images/laundry.png" />
+<div class="image-picker-wrapper">
+  <label>Choose an image:</label>
+  <div class="image-picker" id="imagePicker">
+    <!-- Images will be populated by JS -->
+  </div>
+  <input type="hidden" id="choreImage">
+</div>
 
+
+
+
+    
       <button type="submit">Add Chore</button>
       <div class="success" id="successMsg" style="display: none;">Chore added!</div>
     </form>
@@ -178,7 +239,7 @@ header {
 
       const name = document.getElementById('name').value.trim();
       const category = document.getElementById('category').value;
-      const image = document.getElementById('image').value.trim();
+      const image = document.getElementById('choreImage').value;
 
       if (!name || !category) return;
 
@@ -192,6 +253,60 @@ header {
       document.getElementById('successMsg').style.display = 'block';
     });
   </script>
+  <script>
+  function toggleMenu() {
+    document.getElementById('menu').classList.toggle('visible');
+  }
+
+  // Apply dark mode if saved
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+  }
+</script>
+<script>
+function initImagePicker(imageList, selectedImage = '') {
+  const pickerContainer = document.getElementById('imagePicker');
+  const hiddenInput = document.getElementById('choreImage');
+  
+  pickerContainer.innerHTML = '';
+
+  imageList.forEach(image => {
+    const img = document.createElement('img');
+    img.src = image.src;
+    img.alt = image.label;
+    img.className = 'picker-img';
+    img.dataset.value = image.src;
+    if (image.src === selectedImage) {
+      img.classList.add('selected');
+      hiddenInput.value = image.src;
+    }
+    pickerContainer.appendChild(img);
+  });
+
+  pickerContainer.addEventListener('click', (e) => {
+    if (e.target.tagName === 'IMG') {
+      document.querySelectorAll('.picker-img').forEach(img => img.classList.remove('selected'));
+      e.target.classList.add('selected');
+      hiddenInput.value = e.target.dataset.value;
+    }
+  });
+}
+
+
+</script>
+
+<script>
+  const images = [
+    { src: 'images/broom.png', label: 'Broom' },
+    { src: 'images/vacuum.png', label: 'Vacuum' },
+    { src: 'images/laundry.png', label: 'Laundry' },
+    { src: 'images/dishes.png', label: 'Dishes' }
+  ];
+
+  initImagePicker(images, 'images/broom.png'); // Preselect broom
+</script>
+
+
   <footer class="bottom-nav">
     <a href="index.html" class="nav-item">
       <div>🏠</div>

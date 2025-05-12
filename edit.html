@@ -5,145 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Edit Chore | ChoreSpell</title>
   <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="theme.css">
   <meta name="theme-color" content="#a86ad2" />
   <style>
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: linear-gradient(to bottom right, #e8d0ff, #f9e0ff);
-      color: #4d2063;
-    }
-    /* Fix header layout */
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.header-center {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.header-center img {
-  height: 60px;
-}
-
-.header-spacer {
-  width: 24px; /* balances hamburger icon space */
-}
-
-/* Bottom nav bar */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: white;
-  box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
-  display: flex;
-  justify-content: space-around;
-  padding: 0.5rem 0;
-  z-index: 1001;
-}
-
-.nav-item {
-  text-decoration: none;
-  color: #4d2063;
-  font-size: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.nav-item small {
-  font-size: 0.75rem;
-  margin-top: 0.1rem;
-}
-    .hamburger {
-      font-size: 1.5rem;
-      cursor: pointer;
-      margin-right: 1rem;
-    }
-    .logo {
-      flex-grow: 1;
-      text-align: center;
-    }
-    .logo img {
-      height: 60px;
-    }
-    nav {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 200px;
-      height: 100%;
-      background-color: #fff;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-      padding-top: 4rem;
-      z-index: 1000;
-    }
-    nav a {
-      display: block;
-      padding: 1rem;
-      color: #4d2063;
-      text-decoration: none;
-      border-bottom: 1px solid #eee;
-    }
-    .visible { display: block; }
-
-    main {
-      padding: 2rem;
-      max-width: 400px;
-      margin: auto;
-    }
-    form label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-    input, select {
-      width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background-color: #a86ad2;
-      color: white;
-      padding: 1rem;
-      width: 100%;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .success {
-      text-align: center;
-      color: green;
+    /* You can move this into your theme.css later for tidiness */
+    .image-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
       margin-top: 1rem;
+    }
+
+    .picker-img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .picker-img:hover {
+      transform: scale(1.05);
+    }
+
+    .picker-img.selected {
+      border-color: #a86ad2;
+      box-shadow: 0 0 8px #a86ad2;
     }
   </style>
 </head>
 <body>
-    <header>
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
-        <div class="header-center">
-          <img src="images/logo.png" alt="Chorespell logo" />
-        </div>
-        <div class="header-spacer"></div>
-    </header>
-  <nav id="menu">
+  <header>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="header-center">
+      <img src="images/logo.png" alt="Chorespell logo" />
+    </div>
+    <div class="header-spacer"></div>
+  </header>
+    <nav id="menu">
     <a href="index.html">Home</a>
     <a href="add.html">Add chore</a>
     <a href="random.html">Random chore</a>
     <a href="list.html">View all chores</a>
+    <a href="backup.html">Backup & Restore</a>
+    <a href="settings.html">Settings</a>
+    <a href="about.html">About</a>
   </nav>
 
   <main>
@@ -160,47 +69,17 @@ header {
         <option value="large">Large</option>
       </select>
 
-      <label for="image">Image URL or path</label>
-      <input type="text" id="image" />
+      <div class="image-picker-wrapper">
+        <label>Choose an image:</label>
+        <div class="image-picker" id="imagePicker"></div>
+        <input type="hidden" id="choreImage">
+      </div>
 
       <button type="submit">Save Changes</button>
       <div class="success" id="successMsg" style="display: none;">Chore updated!</div>
     </form>
   </main>
 
-  <script>
-    function toggleMenu() {
-      document.getElementById('menu').classList.toggle('visible');
-    }
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const choreId = parseInt(urlParams.get('id'), 10);
-
-    const chores = JSON.parse(localStorage.getItem('chores')) || [];
-    const chore = chores[choreId];
-
-    if (!chore) {
-      alert('Chore not found.');
-      window.location.href = 'list.html';
-    }
-
-    document.getElementById('name').value = chore.name;
-    document.getElementById('category').value = chore.category;
-    document.getElementById('image').value = chore.image;
-
-    document.getElementById('editForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      chores[choreId] = {
-        name: document.getElementById('name').value.trim(),
-        category: document.getElementById('category').value,
-        image: document.getElementById('image').value.trim()
-      };
-
-      localStorage.setItem('chores', JSON.stringify(chores));
-      document.getElementById('successMsg').style.display = 'block';
-    });
-  </script>
   <footer class="bottom-nav">
     <a href="index.html" class="nav-item">
       <div>🏠</div>
@@ -215,5 +94,81 @@ header {
       <small>Chores</small>
     </a>
   </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('visible');
+    }
+
+    // Image picker reusable function
+    function initImagePicker(imageList, selectedImage = '') {
+      const pickerContainer = document.getElementById('imagePicker');
+      const hiddenInput = document.getElementById('choreImage');
+      pickerContainer.innerHTML = '';
+
+      imageList.forEach(image => {
+        const img = document.createElement('img');
+        img.src = image.src;
+        img.alt = image.label;
+        img.className = 'picker-img';
+        img.dataset.value = image.src;
+        if (image.src === selectedImage) {
+          img.classList.add('selected');
+          hiddenInput.value = image.src;
+        }
+        pickerContainer.appendChild(img);
+      });
+
+      pickerContainer.addEventListener('click', (e) => {
+        if (e.target.tagName === 'IMG') {
+          document.querySelectorAll('.picker-img').forEach(img => img.classList.remove('selected'));
+          e.target.classList.add('selected');
+          hiddenInput.value = e.target.dataset.value;
+        }
+      });
+    }
+
+    // Load images array
+    const images = [
+      { src: 'images/broom.png', label: 'Broom' },
+      { src: 'images/vacuum.png', label: 'Vacuum' },
+      { src: 'images/laundry.png', label: 'Laundry' },
+      { src: 'images/dishes.png', label: 'Dishes' }
+    ];
+
+    // Load chore to edit
+    const urlParams = new URLSearchParams(window.location.search);
+    const choreId = parseInt(urlParams.get('id'), 10);
+    const chores = JSON.parse(localStorage.getItem('chores')) || [];
+    const chore = chores[choreId];
+
+    if (!chore) {
+      alert('Chore not found.');
+      window.location.href = 'list.html';
+    }
+
+    document.getElementById('name').value = chore.name;
+    document.getElementById('category').value = chore.category;
+
+    // Initialize picker with the existing image
+    initImagePicker(images, chore.image);
+
+    // Save changes
+    document.getElementById('editForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      chores[choreId] = {
+        name: document.getElementById('name').value.trim(),
+        category: document.getElementById('category').value,
+        image: document.getElementById('choreImage').value.trim()
+      };
+      localStorage.setItem('chores', JSON.stringify(chores));
+      document.getElementById('successMsg').style.display = 'block';
+    });
+
+    // Apply dark mode if saved
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+  </script>
 </body>
 </html>

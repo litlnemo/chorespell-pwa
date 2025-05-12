@@ -1,0 +1,49 @@
+/* Universal Light Mode styles for ChoreSpell */
+
+body {
+  background: linear-gradient(to bottom right, #e8d0ff, #f9e0ff);
+  color: #4d2063;
+}
+
+header {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+nav {
+  background-color: #fff;
+}
+
+.section {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #4d2063;
+}
+
+.bottom-nav {
+  background: white;
+  color: #4d2063;
+}
+
+.bottom-nav a {
+  color: #4d2063;
+}
+
+.chore-item {
+  background: #fff;
+}
+
+textarea,
+input,
+select {
+  background: #fff;
+  color: #4d2063;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #a86ad2;
+  color: white;
+}
+
+a {
+  color: #4d2063;
+}
