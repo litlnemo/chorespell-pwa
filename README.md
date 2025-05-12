@@ -3,7 +3,7 @@ A random chore app (in progress).
 
 Because sometimes it's easier just to do something random when you have a spare 5 minutes or half an hour. At least, for those of us with questionable executive function!
 
-This app is actually a website that acts like an app. It stores all your chores in local storage on your device, and doesn't keep stats or anything like that -- no login required -- so it's totally private!
+**This app is actually a website that acts like an app.** It stores all your chores in local storage on your device, and doesn't keep stats or anything like that -- no login required -- so it's totally private!
 
 ## To use
 
