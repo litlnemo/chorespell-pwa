@@ -188,7 +188,7 @@ button {
 
 body.dark .chore-item {
   background: #1e1e2f;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); */
 }
 
 /* Sections (settings, about) */
@@ -255,19 +255,21 @@ body.dark select {
   border: 2px solid transparent;
   border-radius: 8px;
   cursor: pointer;
-  background: #fff;
+  /* background: #fff; */
 }
 
 body.dark .picker-img {
-  background: #1e1e2f;
+  /* background: #1e1e2f; */
 }
 
 .picker-img.selected {
   border-color: #a86ad2;
+  background: #fff;
 }
 
 body.dark .picker-img.selected {
   border-color: #aaa;
+  background: #a86ad2;
 }
 
 /* Messages */
