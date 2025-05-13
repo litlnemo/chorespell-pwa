@@ -224,7 +224,7 @@
         <h3>From CSV</h3>
         <textarea
           id="csvInput"
-          placeholder="name,category, ;Sweep kitchen,small,"
+          placeholder="name,category&#10;Sweep kitchen,small&#10;Clean oven,large"
         ></textarea>
         <button onclick="importCSVChores()">Import Chores (CSV)</button>
       </div>
@@ -244,7 +244,7 @@
           null,
           2
         );
-        showMessage("Chores exported! You can copy the JSON into a text file.");
+        showMessage("Chores exported! You can copy the JSON.");
       }
 
       function downloadChoresAsFile() {
