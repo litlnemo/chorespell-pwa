@@ -1,325 +1,336 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Add Chore | ChoreSpell</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="theme.css">
-  <meta name="theme-color" content="#a86ad2" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: linear-gradient(to bottom right, #e8d0ff, #f9e0ff);
-      color: #4d2063;
-    }
-    /* Fix header layout */
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Chore | ChoreSpell</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="theme.css" />
+    <meta name="theme-color" content="#a86ad2" />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", sans-serif;
+        background: linear-gradient(to bottom right, #e8d0ff, #f9e0ff);
+        color: #4d2063;
+      }
+      /* Fix header layout */
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        background-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-.header-center {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-}
+      .header-center {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+      }
 
-.header-center img {
-  height: 60px;
-}
+      .header-center img {
+        height: 60px;
+      }
 
-.header-spacer {
-  width: 24px; /* balances hamburger icon space */
-}
+      .header-spacer {
+        width: 24px; /* balances hamburger icon space */
+      }
 
-/* Bottom nav bar */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: white;
-  box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
-  display: flex;
-  justify-content: space-around;
-  padding: 0.5rem 0;
-  z-index: 1001;
-}
+      /* Bottom nav bar */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: white;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-around;
+        padding: 0.5rem 0;
+        z-index: 1001;
+      }
 
-.nav-item {
-  text-decoration: none;
-  color: #4d2063;
-  font-size: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+      .nav-item {
+        text-decoration: none;
+        color: #4d2063;
+        font-size: 1.2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-.nav-item small {
-  font-size: 0.75rem;
-  margin-top: 0.1rem;
-}
-    .hamburger {
-      font-size: 1.5rem;
-      cursor: pointer;
-      margin-right: 1rem;
-    }
-    .logo {
-      flex-grow: 1;
-      text-align: center;
-    }
-    .logo img {
-      height: 60px;
-    }
-    nav {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 200px;
-      height: 100%;
-      background-color: #fff;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-      padding-top: 4rem;
-      z-index: 1000;
-    }
-    nav a {
-      display: block;
-      padding: 1rem;
-      color: #4d2063;
-      text-decoration: none;
-      border-bottom: 1px solid #eee;
-    }
-    .visible { display: block; }
+      .nav-item small {
+        font-size: 0.75rem;
+        margin-top: 0.1rem;
+      }
+      .hamburger {
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-right: 1rem;
+      }
+      .logo {
+        flex-grow: 1;
+        text-align: center;
+      }
+      .logo img {
+        height: 60px;
+      }
+      nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 100%;
+        background-color: #fff;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        padding-top: 4rem;
+        z-index: 1000;
+      }
+      nav a {
+        display: block;
+        padding: 1rem;
+        color: #4d2063;
+        text-decoration: none;
+        border-bottom: 1px solid #eee;
+      }
+      .visible {
+        display: block;
+      }
 
-    main {
-      padding: 2rem;
-      max-width: 400px;
-      margin: auto;
-    }
-    form label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-    input, select {
-      width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background-color: #a86ad2;
-      color: white;
-      padding: 1rem;
-      width: 100%;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .success {
-      text-align: center;
-      color: green;
-      margin-top: 1rem;
-    }
+      main {
+        padding: 2rem;
+        max-width: 400px;
+        margin: auto;
+      }
+      form label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+      button {
+        background-color: #a86ad2;
+        color: white;
+        padding: 1rem;
+        width: 100%;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      .success {
+        text-align: center;
+        color: green;
+        margin-top: 1rem;
+      }
 
-    /* Cute toggle switch */
-.theme-switch {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-top: 1rem;
-}
+      /* Cute toggle switch */
+      .theme-switch {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 1rem;
+      }
 
-.theme-switch input {
-  display: none;
-}
+      .theme-switch input {
+        display: none;
+      }
 
-.slider {
-  position: relative;
-  width: 50px;
-  height: 28px;
-  background-color: #ccc;
-  border-radius: 34px;
-  margin-right: 0.5rem;
-  transition: background-color 0.3s;
-}
+      .slider {
+        position: relative;
+        width: 50px;
+        height: 28px;
+        background-color: #ccc;
+        border-radius: 34px;
+        margin-right: 0.5rem;
+        transition: background-color 0.3s;
+      }
 
-.slider::before {
-  content: "";
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  left: 3px;
-  top: 3px;
-  background-color: white;
-  border-radius: 50%;
-  transition: transform 0.3s;
-}
+      .slider::before {
+        content: "";
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        left: 3px;
+        top: 3px;
+        background-color: white;
+        border-radius: 50%;
+        transition: transform 0.3s;
+      }
 
-input:checked + .slider {
-  background-color: #6d4eb3;
-}
+      input:checked + .slider {
+        background-color: #6d4eb3;
+      }
 
-input:checked + .slider::before {
-  transform: translateX(22px);
-}
+      input:checked + .slider::before {
+        transform: translateX(22px);
+      }
 
-.label-text {
-  user-select: none;
-}
-
-  </style>
-</head>
-<body>
+      .label-text {
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
     <header>
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
-        <div class="header-center">
-          <img src="images/logo.png" alt="Chorespell logo" />
-        </div>
-        <div class="header-spacer"></div>
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+      <div class="header-center">
+        <img src="images/logo.png" alt="Chorespell logo" />
+      </div>
+      <div class="header-spacer"></div>
     </header>
     <nav id="menu">
-    <a href="index.html">Home</a>
-    <a href="add.html">Add chore</a>
-    <a href="random.html">Random chore</a>
-    <a href="list.html">View all chores</a>
-    <a href="backup.html">Backup & Restore</a>
-    <a href="settings.html">Settings</a>
-    <a href="about.html">About</a>
-  </nav>
+      <a href="index.html">Home</a>
+      <a href="add.html">Add chore</a>
+      <a href="random.html">Random chore</a>
+      <a href="list.html">View all chores</a>
+      <a href="backup.html">Backup & Restore</a>
+      <a href="settings.html">Settings</a>
+      <a href="about.html">About</a>
+    </nav>
 
-  <main>
-    <h1>Add a New Chore</h1>
-    <form id="choreForm">
-      <label for="name">Chore Name</label>
-      <input type="text" id="name" required />
+    <main>
+      <h1>Add a New Chore</h1>
+      <form id="choreForm">
+        <label for="name">Chore Name</label>
+        <input type="text" id="name" required />
 
-      <label for="category">Category</label>
-      <select id="category" required>
-        <option value="">--Select--</option>
-        <option value="small">Small</option>
-        <option value="medium">Medium</option>
-        <option value="large">Large</option>
-      </select>
+        <label for="category">Category</label>
+        <select id="category" required>
+          <option value="">--Select--</option>
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+        </select>
 
-<div class="image-picker-wrapper">
-  <label>Choose an image:</label>
-  <div class="image-picker" id="imagePicker">
-    <!-- Images will be populated by JS -->
-  </div>
-  <input type="hidden" id="choreImage">
-</div>
+        <div class="image-picker-wrapper">
+          <label>Choose an image:</label>
+          <div class="image-picker" id="imagePicker">
+            <!-- Images will be populated by JS -->
+          </div>
+          <input type="hidden" id="choreImage" />
+        </div>
 
+        <button type="submit">Add Chore</button>
+        <div class="success" id="successMsg" style="display: none">
+          Chore added!
+        </div>
+      </form>
+    </main>
 
+    <script>
+      function toggleMenu() {
+        document.getElementById("menu").classList.toggle("visible");
+      }
 
+      document
+        .getElementById("choreForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
 
-    
-      <button type="submit">Add Chore</button>
-      <div class="success" id="successMsg" style="display: none;">Chore added!</div>
-    </form>
-  </main>
+          const name = document.getElementById("name").value.trim();
+          const category = document.getElementById("category").value;
+          const image = document.getElementById("choreImage").value;
 
-  <script>
-    function toggleMenu() {
-      document.getElementById('menu').classList.toggle('visible');
-    }
+          if (!name || !category) return;
 
-    document.getElementById('choreForm').addEventListener('submit', function (e) {
-      e.preventDefault();
+          const newChore = { name, category, image };
+          const chores = JSON.parse(localStorage.getItem("chores")) || [];
 
-      const name = document.getElementById('name').value.trim();
-      const category = document.getElementById('category').value;
-      const image = document.getElementById('choreImage').value;
+          chores.push(newChore);
+          localStorage.setItem("chores", JSON.stringify(chores));
 
-      if (!name || !category) return;
+          document.getElementById("choreForm").reset();
+          document.getElementById("successMsg").style.display = "block";
+        });
+    </script>
+    <script>
+      function toggleMenu() {
+        document.getElementById("menu").classList.toggle("visible");
+      }
 
-      const newChore = { name, category, image };
-      const chores = JSON.parse(localStorage.getItem('chores')) || [];
+      // Apply dark mode if saved
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+      }
+    </script>
+    <script>
+      function initImagePicker(imageList, selectedImage = "") {
+        const pickerContainer = document.getElementById("imagePicker");
+        const hiddenInput = document.getElementById("choreImage");
 
-      chores.push(newChore);
-      localStorage.setItem('chores', JSON.stringify(chores));
+        pickerContainer.innerHTML = "";
 
-      document.getElementById('choreForm').reset();
-      document.getElementById('successMsg').style.display = 'block';
-    });
-  </script>
-  <script>
-  function toggleMenu() {
-    document.getElementById('menu').classList.toggle('visible');
-  }
+        imageList.forEach((image) => {
+          const img = document.createElement("img");
+          img.src = image.src;
+          img.alt = image.label;
+          img.className = "picker-img";
+          img.dataset.value = image.src;
+          if (image.src === selectedImage) {
+            img.classList.add("selected");
+            hiddenInput.value = image.src;
+          }
+          pickerContainer.appendChild(img);
+        });
 
-  // Apply dark mode if saved
-  if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark');
-  }
-</script>
-<script>
-function initImagePicker(imageList, selectedImage = '') {
-  const pickerContainer = document.getElementById('imagePicker');
-  const hiddenInput = document.getElementById('choreImage');
-  
-  pickerContainer.innerHTML = '';
+        pickerContainer.addEventListener("click", (e) => {
+          if (e.target.tagName === "IMG") {
+            document
+              .querySelectorAll(".picker-img")
+              .forEach((img) => img.classList.remove("selected"));
+            e.target.classList.add("selected");
+            hiddenInput.value = e.target.dataset.value;
+          }
+        });
+      }
+    </script>
 
-  imageList.forEach(image => {
-    const img = document.createElement('img');
-    img.src = image.src;
-    img.alt = image.label;
-    img.className = 'picker-img';
-    img.dataset.value = image.src;
-    if (image.src === selectedImage) {
-      img.classList.add('selected');
-      hiddenInput.value = image.src;
-    }
-    pickerContainer.appendChild(img);
-  });
+    <script>
+      const images = [
+        { src: "images/broom.png", label: "Broom" },
+        { src: "images/vacuum.png", label: "Vacuum" },
+        { src: "images/laundry.png", label: "Laundry" },
+        { src: "images/dishes.png", label: "Dishes" },
+        { src: "images/brushbucket.png", label: "Brush" },
+        { src: "images/spraybottle.png", label: "Sprayer" },
+        { src: "images/mopbucket.png", label: "Mop" },
+        { src: "images/plunger.png", label: "Plunger" },
+      ];
 
-  pickerContainer.addEventListener('click', (e) => {
-    if (e.target.tagName === 'IMG') {
-      document.querySelectorAll('.picker-img').forEach(img => img.classList.remove('selected'));
-      e.target.classList.add('selected');
-      hiddenInput.value = e.target.dataset.value;
-    }
-  });
-}
+      initImagePicker(images, "images/broom.png"); // Preselect broom
+    </script>
 
-
-</script>
-
-<script>
-  const images = [
-    { src: 'images/broom.png', label: 'Broom' },
-    { src: 'images/vacuum.png', label: 'Vacuum' },
-    { src: 'images/laundry.png', label: 'Laundry' },
-    { src: 'images/dishes.png', label: 'Dishes' }
-  ];
-
-  initImagePicker(images, 'images/broom.png'); // Preselect broom
-</script>
-
-
-  <footer class="bottom-nav">
-    <a href="index.html" class="nav-item">
-      <div>🏠</div>
-      <small>Home</small>
-    </a>
-    <a href="random.html" class="nav-item">
-      <div>🎲</div>
-      <small>Random</small>
-    </a>
-    <a href="list.html" class="nav-item">
-      <div>📋</div>
-      <small>Chores</small>
-    </a>
-  </footer>
-</body>
+    <footer class="bottom-nav">
+      <a href="index.html" class="nav-item">
+        <div>
+          <img src="images/home.png" style="height: 28px; width: 24px" />
+        </div>
+        <small>Home</small>
+      </a>
+      <a href="random.html" class="nav-item">
+        <div>
+          <img src="images/dice2.png" style="height: 28px; width: 28px" />
+        </div>
+        <small>Random</small>
+      </a>
+      <a href="list.html" class="nav-item">
+        <div>
+          <img src="images/clipboard.png" style="height: 24px; width: 24px" />
+        </div>
+        <small>Chores</small>
+      </a>
+    </footer>
+  </body>
 </html>

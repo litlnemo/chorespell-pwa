@@ -1,308 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="light.css" />
+    <link rel="stylesheet" href="dark.css" />
+    <meta name="theme-color" content="#a86ad2" />
+    <title>ChoreSpell</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="light.css">
-<link rel="stylesheet" href="dark.css">  
-<meta name="theme-color" content="#a86ad2"> 
-  <title>ChoreSpell</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", sans-serif;
+        background: linear-gradient(to bottom right, #dcb3ff, #ffdde1);
+        color: #4d2063;
+        padding: 0;
+      }
 
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: linear-gradient(to bottom right, #dcb3ff, #ffdde1);
-      color: #4d2063;
-      padding: 0;
-    }
+      /* Fix header layout */
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        background-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-    /* Fix header layout */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem;
-      background-color: rgba(255, 255, 255, 0.8); 
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+      .header-center {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+      }
 
-    .header-center {
-      flex-grow: 1;
-      display: flex;
-      justify-content: center;
-    }
+      .header-center img {
+        height: 60px;
+      }
 
-    .header-center img {
-      height: 60px;
-    }
+      .header-spacer {
+        width: 24px;
+        /* balances hamburger icon space */
+      }
 
-    .header-spacer {
-      width: 24px;
-      /* balances hamburger icon space */
-    }
+      /* Bottom nav bar */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: white;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-around;
+        padding: 0.5rem 0;
+        z-index: 1001;
+      }
 
-    /* Bottom nav bar */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: white;
-      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      justify-content: space-around;
-      padding: 0.5rem 0;
-      z-index: 1001;
-    }
+      .nav-item {
+        text-decoration: none;
+        color: #4d2063;
+        font-size: 1.2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-    .nav-item {
-      text-decoration: none;
-      color: #4d2063;
-      font-size: 1.2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+      .nav-item small {
+        font-size: 0.75rem;
+        margin-top: 0.1rem;
+      }
 
-    .nav-item small {
-      font-size: 0.75rem;
-      margin-top: 0.1rem;
-    }
+      .hamburger {
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-right: 1rem;
+      }
 
-    .hamburger {
-      font-size: 1.5rem;
-      cursor: pointer;
-      margin-right: 1rem;
-    }
+      .logo {
+        flex-grow: 1;
+        text-align: center;
+      }
 
-    .logo {
-      flex-grow: 1;
-      text-align: center;
-    }
+      .logo img {
+        height: 60px;
+      }
 
-    .logo img {
-      height: 60px;
-    }
+      main {
+        text-align: center;
+        /* padding: 2rem; */
+      }
 
-    main {
-      text-align: center;
-      /* padding: 2rem; */
-    }
+      .big-button {
+        background-color: #a86ad2;
+        color: white;
+        padding: 1rem 2rem;
+        font-size: 1.25rem;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        margin-top: 2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
 
-    .big-button {
-      background-color: #a86ad2;
-      color: white;
-      padding: 1rem 2rem;
-      font-size: 1.25rem;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      margin-top: 2rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
+      nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 100%;
+        background-color: #fff;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        padding-top: 4rem;
+        z-index: 1000;
+      }
 
-    nav {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 200px;
-      height: 100%;
-      background-color: #fff;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-      padding-top: 4rem;
-      z-index: 1000;
-    }
+      nav a {
+        display: block;
+        padding: 1rem;
+        color: #4d2063;
+        text-decoration: none;
+        border-bottom: 1px solid #eee;
+      }
 
-    nav a {
-      display: block;
-      padding: 1rem;
-      color: #4d2063;
-      text-decoration: none;
-      border-bottom: 1px solid #eee;
-    }
+      .visible {
+        display: block;
+      }
 
-    .visible {
-      display: block;
-    }
+      .splash-container {
+        position: relative;
+        width: 100%;
+        height: calc(100vh - 140px);
+        /* Adjust for header + footer height */
+        overflow: hidden;
+      }
 
-    .splash-container {
-      position: relative;
-      width: 100%;
-      height: calc(100vh - 140px);
-      /* Adjust for header + footer height */
-      overflow: hidden;
-    }
+      .splash-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
 
-    .splash-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+      .splash-button {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #a86ad2;
+        color: white;
+        padding: 1rem 2.5rem;
+        font-size: 1.25rem;
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 0 15px rgba(168, 106, 210, 0.6);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        animation: pulse 2.5s infinite;
+      }
 
-  .splash-button {
-  position: absolute;
-  bottom: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #a86ad2;
-  color: white;
-  padding: 1rem 2.5rem;
-  font-size: 1.25rem;
-  border: none;
-  border-radius: 16px;
-  box-shadow: 0 0 15px rgba(168, 106, 210, 0.6);
-  text-decoration: none;
-  transition: all 0.3s ease;
-  animation: pulse 2.5s infinite;
-}
+      .splash-button:hover {
+        background-color: #b57ae5;
+        box-shadow: 0 0 24px rgba(168, 106, 210, 0.9);
+        transform: translateX(-50%) scale(1.05);
+      }
 
-.splash-button:hover {
-  background-color: #b57ae5;
-  box-shadow: 0 0 24px rgba(168, 106, 210, 0.9);
-  transform: translateX(-50%) scale(1.05);
-}
+      .splash-button:hover::before {
+        content: " ✨";
+      }
 
-.splash-button:hover::before {
-  content: ' ✨';
-}
+      .splash-button:hover::after {
+        content: " ✨";
+      }
 
-.splash-button:hover::after {
-  content: ' ✨';
-}
+      /* Cute toggle switch */
+      .theme-switch {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 1rem;
+      }
 
-/* Cute toggle switch */
-.theme-switch {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-top: 1rem;
-}
+      .theme-switch input {
+        display: none;
+      }
 
-.theme-switch input {
-  display: none;
-}
+      .slider {
+        position: relative;
+        width: 50px;
+        height: 28px;
+        background-color: #ccc;
+        border-radius: 34px;
+        margin-right: 0.5rem;
+        transition: background-color 0.3s;
+      }
 
-.slider {
-  position: relative;
-  width: 50px;
-  height: 28px;
-  background-color: #ccc;
-  border-radius: 34px;
-  margin-right: 0.5rem;
-  transition: background-color 0.3s;
-}
+      .slider::before {
+        content: "";
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        left: 3px;
+        top: 3px;
+        background-color: white;
+        border-radius: 50%;
+        transition: transform 0.3s;
+      }
 
-.slider::before {
-  content: "";
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  left: 3px;
-  top: 3px;
-  background-color: white;
-  border-radius: 50%;
-  transition: transform 0.3s;
-}
+      input:checked + .slider {
+        background-color: #6d4eb3;
+      }
 
-input:checked + .slider {
-  background-color: #6d4eb3;
-}
+      input:checked + .slider::before {
+        transform: translateX(22px);
+      }
 
-input:checked + .slider::before {
-  transform: translateX(22px);
-}
+      .label-text {
+        user-select: none;
+      }
 
-.label-text {
-  user-select: none;
-}
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 15px rgba(168, 106, 210, 0.6);
+        }
+        50% {
+          box-shadow: 0 0 30px rgba(168, 106, 210, 0.85);
+        }
+        100% {
+          box-shadow: 0 0 15px rgba(168, 106, 210, 0.6);
+        }
+      }
+    </style>
+  </head>
 
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 15px rgba(168, 106, 210, 0.6);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(168, 106, 210, 0.85);
-  }
-  100% {
-    box-shadow: 0 0 15px rgba(168, 106, 210, 0.6);
-  }
-}
-
-</style>
-</head>
-
-<body>
-  <header>
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
-    <!-- <div class="header-center">
+  <body>
+    <header>
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+      <!-- <div class="header-center">
       <img src="images/logo.png" alt="Chorespell logo" />
     </div> 
     <div class="header-spacer"></div> -->
-  </header>
+    </header>
     <nav id="menu">
-    <a href="index.html">Home</a>
-    <a href="add.html">Add chore</a>
-    <a href="random.html">Random chore</a>
-    <a href="list.html">View all chores</a>
-    <a href="backup.html">Backup & Restore</a>
-    <a href="settings.html">Settings</a>
-    <a href="about.html">About</a>
-  </nav>
-  <main class="splash-container">
-    <img src="images/chorespell-splash.png" alt="Welcome to ChoreSpell!" class="splash-image" />
-    <a href="random.html" class="splash-button">Random Chore</a>
-  </main>
+      <a href="index.html">Home</a>
+      <a href="add.html">Add chore</a>
+      <a href="random.html">Random chore</a>
+      <a href="list.html">View all chores</a>
+      <a href="backup.html">Backup & Restore</a>
+      <a href="settings.html">Settings</a>
+      <a href="about.html">About</a>
+    </nav>
+    <main class="splash-container">
+      <img
+        src="images/chorespell-splash.png"
+        alt="Welcome to ChoreSpell!"
+        class="splash-image"
+      />
+      <a href="random.html" class="splash-button">Random Chore</a>
+    </main>
 
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('menu');
-      menu.classList.toggle('visible');
-    }
-  </script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('Service Worker registered!'))
-        .catch(error => console.error('Service Worker error:', error));
-    }
-  </script>
-  <script>
-  function toggleMenu() {
-    document.getElementById('menu').classList.toggle('visible');
-  }
+    <script>
+      function toggleMenu() {
+        const menu = document.getElementById("menu");
+        menu.classList.toggle("visible");
+      }
+    </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("service-worker.js")
+          .then(() => console.log("Service Worker registered!"))
+          .catch((error) => console.error("Service Worker error:", error));
+      }
+    </script>
+    <script>
+      function toggleMenu() {
+        document.getElementById("menu").classList.toggle("visible");
+      }
 
-  // Apply dark mode if saved
-  if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark');
-  }
-  </script>
-  <!-- image sizes temporarily hard-coded in until I get final graphics -->
-  <footer class="bottom-nav">
-    <a href="index.html" class="nav-item">
-      <div><img src="images/home.png" style="height: 28px; width: 24px;"></div>
-      <small>Home</small>
-    </a>
-    <a href="random.html" class="nav-item">
-      <div><img src="images/dice2.png" style="height: 28px; width: 28px;"></div>
-      <small>Random</small>
-    </a>
-    <a href="list.html" class="nav-item">
-      <div><img src="images/clipboard.png" style="height: 24px; width: 24px;"></div>
-      <small>Chores</small>
-    </a>
-  </footer>
-</body>
-
+      // Apply dark mode if saved
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+      }
+    </script>
+    <!-- image sizes temporarily hard-coded in until I get final graphics -->
+    <footer class="bottom-nav">
+      <a href="index.html" class="nav-item">
+        <div>
+          <img src="images/home.png" style="height: 28px; width: 24px" />
+        </div>
+        <small>Home</small>
+      </a>
+      <a href="random.html" class="nav-item">
+        <div>
+          <img src="images/dice2.png" style="height: 28px; width: 28px" />
+        </div>
+        <small>Random</small>
+      </a>
+      <a href="list.html" class="nav-item">
+        <div>
+          <img src="images/clipboard.png" style="height: 24px; width: 24px" />
+        </div>
+        <small>Chores</small>
+      </a>
+    </footer>
+  </body>
 </html>

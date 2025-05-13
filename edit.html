@@ -1,174 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Edit Chore | ChoreSpell</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="theme.css">
-  <meta name="theme-color" content="#a86ad2" />
-  <style>
-    /* You can move this into your theme.css later for tidiness */
-    .image-picker {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Chore | ChoreSpell</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="theme.css" />
+    <meta name="theme-color" content="#a86ad2" />
+    <style>
+      /* You can move this into your theme.css later for tidiness */
+      .image-picker {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
 
-    .picker-img {
-      width: 80px;
-      height: 80px;
-      object-fit: contain;
-      border: 2px solid transparent;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      transition: transform 0.2s, border-color 0.2s;
-    }
+      .picker-img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s, border-color 0.2s;
+      }
 
-    .picker-img:hover {
-      transform: scale(1.05);
-    }
+      .picker-img:hover {
+        transform: scale(1.05);
+      }
 
-    .picker-img.selected {
-      border-color: #a86ad2;
-      box-shadow: 0 0 8px #a86ad2;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
-    <div class="header-center">
-      <img src="images/logo.png" alt="Chorespell logo" />
-    </div>
-    <div class="header-spacer"></div>
-  </header>
-    <nav id="menu">
-    <a href="index.html">Home</a>
-    <a href="add.html">Add chore</a>
-    <a href="random.html">Random chore</a>
-    <a href="list.html">View all chores</a>
-    <a href="backup.html">Backup & Restore</a>
-    <a href="settings.html">Settings</a>
-    <a href="about.html">About</a>
-  </nav>
-
-  <main>
-    <h1>Edit Chore</h1>
-    <form id="editForm">
-      <label for="name">Chore Name</label>
-      <input type="text" id="name" required />
-
-      <label for="category">Category</label>
-      <select id="category" required>
-        <option value="">--Select--</option>
-        <option value="small">Small</option>
-        <option value="medium">Medium</option>
-        <option value="large">Large</option>
-      </select>
-
-      <div class="image-picker-wrapper">
-        <label>Choose an image:</label>
-        <div class="image-picker" id="imagePicker"></div>
-        <input type="hidden" id="choreImage">
+      .picker-img.selected {
+        border-color: #a86ad2;
+        box-shadow: 0 0 8px #a86ad2;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+      <div class="header-center">
+        <img src="images/logo.png" alt="Chorespell logo" />
       </div>
+      <div class="header-spacer"></div>
+    </header>
+    <nav id="menu">
+      <a href="index.html">Home</a>
+      <a href="add.html">Add chore</a>
+      <a href="random.html">Random chore</a>
+      <a href="list.html">View all chores</a>
+      <a href="backup.html">Backup & Restore</a>
+      <a href="settings.html">Settings</a>
+      <a href="about.html">About</a>
+    </nav>
 
-      <button type="submit">Save Changes</button>
-      <div class="success" id="successMsg" style="display: none;">Chore updated!</div>
-    </form>
-  </main>
+    <main>
+      <h1>Edit Chore</h1>
+      <form id="editForm">
+        <label for="name">Chore Name</label>
+        <input type="text" id="name" required />
 
-  <footer class="bottom-nav">
-    <a href="index.html" class="nav-item">
-      <div>🏠</div>
-      <small>Home</small>
-    </a>
-    <a href="random.html" class="nav-item">
-      <div>🎲</div>
-      <small>Random</small>
-    </a>
-    <a href="list.html" class="nav-item">
-      <div>📋</div>
-      <small>Chores</small>
-    </a>
-  </footer>
+        <label for="category">Category</label>
+        <select id="category" required>
+          <option value="">--Select--</option>
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+        </select>
 
-  <script>
-    function toggleMenu() {
-      document.getElementById('menu').classList.toggle('visible');
-    }
+        <div class="image-picker-wrapper">
+          <label>Choose an image:</label>
+          <div class="image-picker" id="imagePicker"></div>
+          <input type="hidden" id="choreImage" />
+        </div>
 
-    // Image picker reusable function
-    function initImagePicker(imageList, selectedImage = '') {
-      const pickerContainer = document.getElementById('imagePicker');
-      const hiddenInput = document.getElementById('choreImage');
-      pickerContainer.innerHTML = '';
+        <button type="submit">Save Changes</button>
+        <div class="success" id="successMsg" style="display: none">
+          Chore updated!
+        </div>
+      </form>
+    </main>
 
-      imageList.forEach(image => {
-        const img = document.createElement('img');
-        img.src = image.src;
-        img.alt = image.label;
-        img.className = 'picker-img';
-        img.dataset.value = image.src;
-        if (image.src === selectedImage) {
-          img.classList.add('selected');
-          hiddenInput.value = image.src;
-        }
-        pickerContainer.appendChild(img);
-      });
+    <footer class="bottom-nav">
+      <a href="index.html" class="nav-item">
+        <div>
+          <img src="images/home.png" style="height: 28px; width: 24px" />
+        </div>
+        <small>Home</small>
+      </a>
+      <a href="random.html" class="nav-item">
+        <div>
+          <img src="images/dice2.png" style="height: 28px; width: 28px" />
+        </div>
+        <small>Random</small>
+      </a>
+      <a href="list.html" class="nav-item">
+        <div>
+          <img src="images/clipboard.png" style="height: 24px; width: 24px" />
+        </div>
+        <small>Chores</small>
+      </a>
+    </footer>
 
-      pickerContainer.addEventListener('click', (e) => {
-        if (e.target.tagName === 'IMG') {
-          document.querySelectorAll('.picker-img').forEach(img => img.classList.remove('selected'));
-          e.target.classList.add('selected');
-          hiddenInput.value = e.target.dataset.value;
-        }
-      });
-    }
+    <script>
+      function toggleMenu() {
+        document.getElementById("menu").classList.toggle("visible");
+      }
 
-    // Load images array
-    const images = [
-      { src: 'images/broom.png', label: 'Broom' },
-      { src: 'images/vacuum.png', label: 'Vacuum' },
-      { src: 'images/laundry.png', label: 'Laundry' },
-      { src: 'images/dishes.png', label: 'Dishes' }
-    ];
+      // Image picker reusable function
+      function initImagePicker(imageList, selectedImage = "") {
+        const pickerContainer = document.getElementById("imagePicker");
+        const hiddenInput = document.getElementById("choreImage");
+        pickerContainer.innerHTML = "";
 
-    // Load chore to edit
-    const urlParams = new URLSearchParams(window.location.search);
-    const choreId = parseInt(urlParams.get('id'), 10);
-    const chores = JSON.parse(localStorage.getItem('chores')) || [];
-    const chore = chores[choreId];
+        imageList.forEach((image) => {
+          const img = document.createElement("img");
+          img.src = image.src;
+          img.alt = image.label;
+          img.className = "picker-img";
+          img.dataset.value = image.src;
+          if (image.src === selectedImage) {
+            img.classList.add("selected");
+            hiddenInput.value = image.src;
+          }
+          pickerContainer.appendChild(img);
+        });
 
-    if (!chore) {
-      alert('Chore not found.');
-      window.location.href = 'list.html';
-    }
+        pickerContainer.addEventListener("click", (e) => {
+          if (e.target.tagName === "IMG") {
+            document
+              .querySelectorAll(".picker-img")
+              .forEach((img) => img.classList.remove("selected"));
+            e.target.classList.add("selected");
+            hiddenInput.value = e.target.dataset.value;
+          }
+        });
+      }
 
-    document.getElementById('name').value = chore.name;
-    document.getElementById('category').value = chore.category;
+      // Load images array
+      const images = [
+        { src: "images/broom.png", label: "Broom" },
+        { src: "images/vacuum.png", label: "Vacuum" },
+        { src: "images/laundry.png", label: "Laundry" },
+        { src: "images/dishes.png", label: "Dishes" },
+        { src: "images/brushbucket.png", label: "Brush" },
+        { src: "images/spraybottle.png", label: "Sprayer" },
+        { src: "images/mopbucket.png", label: "Mop" },
+        { src: "images/plunger.png", label: "Plunger" },
+      ];
 
-    // Initialize picker with the existing image
-    initImagePicker(images, chore.image);
+      // Load chore to edit
+      const urlParams = new URLSearchParams(window.location.search);
+      const choreId = parseInt(urlParams.get("id"), 10);
+      const chores = JSON.parse(localStorage.getItem("chores")) || [];
+      const chore = chores[choreId];
 
-    // Save changes
-    document.getElementById('editForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      chores[choreId] = {
-        name: document.getElementById('name').value.trim(),
-        category: document.getElementById('category').value,
-        image: document.getElementById('choreImage').value.trim()
-      };
-      localStorage.setItem('chores', JSON.stringify(chores));
-      document.getElementById('successMsg').style.display = 'block';
-    });
+      if (!chore) {
+        alert("Chore not found.");
+        window.location.href = "list.html";
+      }
 
-    // Apply dark mode if saved
-    if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('dark');
-    }
-  </script>
-</body>
+      document.getElementById("name").value = chore.name;
+      document.getElementById("category").value = chore.category;
+
+      // Initialize picker with the existing image
+      initImagePicker(images, chore.image);
+
+      // Save changes
+      document
+        .getElementById("editForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          chores[choreId] = {
+            name: document.getElementById("name").value.trim(),
+            category: document.getElementById("category").value,
+            image: document.getElementById("choreImage").value.trim(),
+          };
+          localStorage.setItem("chores", JSON.stringify(chores));
+          document.getElementById("successMsg").style.display = "block";
+        });
+
+      // Apply dark mode if saved
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+      }
+    </script>
+  </body>
 </html>
