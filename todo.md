@@ -5,13 +5,13 @@
 - [ ] Improve UI polish and spacing for `backup.html` (Partly done!)
 - [ ] Add optional fields (description, notes, difficulty) to chores
 - [ ] Refine dark mode colors and UI contrast across all pages
-- [ ] Add all needed images (original art)
 - [ ] "Delete chore" functionality
 
 ## 💡 UI & Pages
 - [ ] Confirm footer nav consistency on all pages (including Backup & Settings)
 - [ ] Polish Settings page with more preferences (reminders, etc.)
 - [ ] Get image icons in place on all pages
+- [ ] Add all needed images (original art)
 
 ## ✅ Completed
 - [x] Export/Import Chores JSON working
@@ -26,3 +26,4 @@
 - [x] Clarify warning UI on `backup.html`
 - [x] Temp images added as placeholders until I finish the art
 - [x] Get image icons in place on all pages
+- [x] Get rid of annoying box-shadows in certain places
